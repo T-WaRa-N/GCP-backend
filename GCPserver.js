@@ -33,10 +33,11 @@ app.get('/customer-list', (req, res) => {
 app.post('/customer-enlist', (req, res) =>{ 
     
     let newCustomer = {
-        "ilali": req.body.ilale, 
+        "ilali": req.body.ilali, 
         "emanini": req.body.emanini, 
-        "umnxeba1": req.body.umnxeba1, 
-        "umnxeba2": req.body.umnxeba2
+        "igama": req.body.igama, 
+        "umnxeba": req.body.umnxeba,
+        "usuku": req.body.usuku
     }
 
     testFile.push(newCustomer)
