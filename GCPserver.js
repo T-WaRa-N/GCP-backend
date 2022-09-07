@@ -76,11 +76,14 @@ app.post('/customer-enlist', (req, res) =>{
 
 
  app.delete('/delete-customer', (req, res) => {
-    let index = req.body.delete
+    let index = req.body.del
+
+    // console.log(index)
+
     testFile.splice(index, 1)
     fileHandler.writeFile('./test.json', `${JSON.stringify(testFile, null, 2)}`,(err) =>{
         if(err) throw err
-        else res.send({"message":"le icustomer isusiwe kwabangekanikwa maxabiso, refresh the page"})
+        else res.send({"message":"le icustomer iyasuswa kwabangekanikwa xabiso!"})
     })
 
  })
