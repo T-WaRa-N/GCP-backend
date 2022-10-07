@@ -18,6 +18,7 @@ const fileHandler = require("fs")
 //importing local json files
 const testFile = require('./test.json')
 const testFile2 = require('./test2.json')
+const clientReg = require('./client-registration.json')
 
 //CRUD request come below to handle all requests from the frontend 
 
@@ -38,7 +39,7 @@ app.get('/paid-customer-list', (req, res) => {
 
 })
 
-//handle POST request
+//handle customer POST request
 app.post('/customer-enlist', (req, res) =>{ 
     
     let newCustomer = {
@@ -74,6 +75,24 @@ app.post('/customer-enlist', (req, res) =>{
     })
  })
 
+ app.post('/client-enlist', (req, res)=>{
+
+    let newClient = {
+        "igama": `${req.body.igama}`,
+        "imitshini":`${req.body.imitshini}`,
+        "umnxeba": `${req.body.umnxeba}`,
+        "usuku": `${req.body.usuku}`,
+        "ilali": `${req.body.ilali}`
+    }
+
+    clientReg.push(newClient)
+    fileHandler.writeFile('./client-registration.json',`${JSON.stringify(clientReg, null, 2)}`, err => {
+        if(err) throw err
+        else res.send({"message":"ihambile, ungalinda iGCP izoxhumana nawe"})
+    })
+
+ })
+
 
  app.delete('/delete-customer', (req, res) => {
     let index = req.body.del
@@ -87,6 +106,8 @@ app.post('/customer-enlist', (req, res) =>{
     })
 
  })
+
+ 
 
 //Sorting the listening port to be flexible also on deployment.
 const PORT = process.env.PORT || 3001
