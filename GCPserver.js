@@ -19,6 +19,7 @@ const fileHandler = require("fs")
 const testFile = require('./test.json')
 const testFile2 = require('./test2.json')
 const clientReg = require('./client-registration.json')
+const dummyDatabase = require('./database.json')
 
 //CRUD request come below to handle all requests from the frontend 
 
@@ -98,13 +99,39 @@ app.post('/customer-enlist', (req, res) =>{
     let index = req.body.del
 
     // console.log(index)
-
     testFile.splice(index, 1)
     fileHandler.writeFile('./test.json', `${JSON.stringify(testFile, null, 2)}`,(err) =>{
         if(err) throw err
         else res.send({"message":"le icustomer iyasuswa kwabangekanikwa xabiso!"})
     })
+ })
 
+ app.delete('/add-to-database',(req, res)=>{
+
+    let index = req.body.index
+
+    // console.log(index)
+    function remover(customer_index)
+    {
+        testFile2.splice(customer_index, 1) // deleting the file added to the dummy-database
+        fileHandler.writeFile('./test2.json', `${JSON.stringify(testFile2, null, 2)}`, err => {
+            if(err) throw err
+            else res.send({"message": "sele encediwe, ususiwe"})
+        })
+
+    }
+
+
+    //adding to the dummy database
+    dummyDatabase.push(testFile2[index])
+    fileHandler.writeFile('./database.json',`${JSON.stringify(dummyDatabase, null, 2)}`, (err) => {
+        if(err) throw err
+        else {
+            res.send({"message": "Enkosi icustomer siyigcine kwi-database yethu"})
+        } 
+    })
+
+    remover(index) // calling the function to remove the client from the paid customer lists
  })
 
  
