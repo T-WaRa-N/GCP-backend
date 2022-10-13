@@ -134,6 +134,17 @@ app.post('/customer-enlist', (req, res) =>{
     remover(index) // calling the function to remove the client from the paid customer lists
  })
 
+ app.delete('/remove-refund-customer', (req, res) => {
+    
+    let customer_index = req.body.index
+
+    testFile2.splice(customer_index, 1) // deleting the file added to the dummy-database
+        fileHandler.writeFile('./test2.json', `${JSON.stringify(testFile2, null, 2)}`, err => {
+            if(err) throw err
+            else res.send({"message": "Ukhumbule ukumbhatala imali yakhe wena uthathe eyendleko zekuza kuye eyi-20%"})
+        })
+
+ })
  
 
 //Sorting the listening port to be flexible also on deployment.
